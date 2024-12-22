@@ -1,0 +1,14 @@
+document.getElementById('root').innerHTML = `
+  <h1>Event Management Dashboard</h1>
+  <div class="container">
+    <div id="events"></div>
+  </div>
+`;
+
+fetch('http://localhost:5000/api/events')
+  .then(response => response.json())
+  .then(data => {
+    const events = data.map(event => `<div class="card">${event.name} - ${event.date}</div>`).join('');
+    document.getElementById('events').innerHTML = events;
+  })
+  .catch(err => console.error('Error loading events:', err));
